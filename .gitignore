@@ -1,0 +1,8 @@
+.env
+bin/
+coverage.out
+*.test
+__pycache__/
+.pytest_cache/
+
+.venv/

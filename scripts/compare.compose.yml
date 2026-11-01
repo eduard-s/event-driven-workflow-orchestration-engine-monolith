@@ -1,0 +1,107 @@
+name: workflow-comparison
+x-pg: &pg
+  image: postgres:18@sha256:edb0c08dc33befd0262ab3b5cf1c4f3f8cfd8b09e88c05b45adee29d6761ddb6
+  restart: unless-stopped
+  environment: {POSTGRES_USER: workflow, POSTGRES_PASSWORD: workflow, POSTGRES_DB: workflow}
+  cpus: 1.5
+  mem_limit: 768m
+  healthcheck:
+    test: [CMD-SHELL, "pg_isready -U workflow -d workflow"]
+    interval: 2s
+    timeout: 3s
+    retries: 30
+x-python: &python
+  image: workflow-python-compare:local
+  init: true
+  restart: unless-stopped
+  environment: &python-env
+    WF_POSTGRES_DSN: postgresql://workflow:workflow@pg-python:5432/workflow
+    WF_AUDIT_POSTGRES_DSN: postgresql://workflow:workflow@pg-python:5432/workflow_audit
+    WF_REDIS_URL: redis://redis:6379/0
+    WF_REQUESTS_PER_SECOND: 10000
+    WF_MAX_EXECUTIONS: 10000
+    WF_MAX_RECORDS: 100000
+    WF_WORKER_CONCURRENCY: 4
+    WF_EXECUTION_SLOTS: 8
+    WF_HANDLER_TIMEOUT: 10
+    WF_EXECUTION_TIMEOUT: 300
+    WF_MAX_STARTS: 3
+    WF_HANDLER_MODE: auto
+  depends_on:
+    pg-python: {condition: service_healthy}
+    redis: {condition: service_healthy}
+  logging:
+    driver: json-file
+    options: {max-size: 10m, max-file: "3"}
+services:
+  go:
+    image: workflow-go-monolith:local
+    init: true
+    restart: unless-stopped
+    environment:
+      WF_POSTGRES_DSN: postgres://workflow:workflow@pg-go:5432/workflow?sslmode=disable
+      WF_REQUESTS_PER_SECOND: 10000
+      WF_MAX_EXECUTIONS: 10000
+      WF_MAX_RECORDS: 100000
+      WF_WORKER_CONCURRENCY: 4
+      WF_EXECUTION_SLOTS: 8
+      WF_HANDLER_TIMEOUT: 10
+      WF_EXECUTION_TIMEOUT: 300
+      WF_MAX_STARTS: 3
+    ports: ["127.0.0.1:29500:8000"]
+    cpus: 2.5
+    mem_limit: 1280m
+    depends_on:
+      pg-go: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, /workflow, health]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  pg-go:
+    <<: *pg
+    volumes: ["go-data:/var/lib/postgresql"]
+    ports: ["127.0.0.1:29532:5432"]
+  api:
+    <<: *python
+    command: [python, -m, api]
+    cpus: 0.5
+    mem_limit: 256m
+    ports: ["127.0.0.1:29501:8000"]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  orchestrator:
+    <<: *python
+    command: [python, -m, orchestrator]
+    cpus: 0.5
+    mem_limit: 256m
+  worker:
+    <<: *python
+    command: [python, -m, worker]
+    cpus: 1
+    mem_limit: 512m
+  pg-python:
+    <<: *pg
+    volumes:
+      - python-data:/var/lib/postgresql
+      - ../../event-driven-workflow-orchestration-engine/db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    ports: ["127.0.0.1:29533:5432"]
+  redis:
+    image: redis:8.4.6@sha256:c9be7684a2179db5eb59e095ab3232537be2f895abc4ddb108737b2a4854c513
+    restart: unless-stopped
+    command: [redis-server, --appendonly, "yes", --appendfsync, always, --maxmemory, 192mb, --maxmemory-policy, noeviction]
+    cpus: 0.5
+    mem_limit: 256m
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  go-data:
+  python-data:
+  redis-data:

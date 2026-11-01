@@ -1,0 +1,20 @@
+{
+  "execution_id": "470d4897-bedb-41dc-aad4-c794f64e79cd",
+  "outputs": {
+    "output": {
+      "get_comments": {
+        "data": null,
+        "url": "http://localhost:8911/document/policy/list"
+      },
+      "get_posts": {
+        "data": null,
+        "url": "http://localhost:8911/document/policy/list"
+      },
+      "get_user": {
+        "data": null,
+        "url": "http://localhost:8911/document/policy/list"
+      }
+    }
+  },
+  "state": "COMPLETED"
+}

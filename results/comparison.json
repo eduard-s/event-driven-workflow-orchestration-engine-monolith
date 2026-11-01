@@ -1,0 +1,309 @@
+{
+  "method": {
+    "rounds": 3,
+    "total_cpu_limit": 4,
+    "total_memory_mib": 2048,
+    "postgres_cpu_limit": 1.5,
+    "postgres_memory_mib": 768,
+    "handler_concurrency": 4,
+    "handler_timeout_seconds": 10,
+    "execution_timeout_seconds": 300,
+    "rate_limit": 10000,
+    "poll_seconds": 0.025,
+    "durability": "PostgreSQL synchronous_commit=on, Redis appendfsync=always",
+    "scope": "full deployment, including broker cost",
+    "overload_policy": "retry 429/503 after 25ms with the same submission key; receipt and workflow latency include retries",
+    "memory": "largest sampled sum of container usage minus inactive file cache",
+    "cpu": "sum of Docker cumulative CPU counters over each case"
+  },
+  "runs": [
+    {
+      "engine": "go",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 0.7711766250431538,
+      "workflows_per_second": 165.9801345675348,
+      "p50_ms": 82.6144999882672,
+      "p95_ms": 193.5677919536829,
+      "receipt_p95_ms": 88.2732910104096,
+      "cpu_seconds": 0.8807980000000004,
+      "peak_sampled_mib": 62.28125,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 1
+    },
+    {
+      "engine": "go",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.15404833300272,
+      "workflows_per_second": 1.3220191749941401,
+      "p50_ms": 8570.100791490404,
+      "p95_ms": 9087.497457978316,
+      "receipt_p95_ms": 27.602957969065756,
+      "cpu_seconds": 3.5394369999999995,
+      "peak_sampled_mib": 64.6171875,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 1
+    },
+    {
+      "engine": "python",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 5.630882875004318,
+      "workflows_per_second": 22.731781647989234,
+      "p50_ms": 605.3587709611747,
+      "p95_ms": 1206.4598750439472,
+      "receipt_p95_ms": 301.5677910298109,
+      "cpu_seconds": 7.880739999999999,
+      "peak_sampled_mib": 308.78125,
+      "overload_responses": {
+        "503": 32,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 1
+    },
+    {
+      "engine": "python",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.93257712497143,
+      "workflows_per_second": 1.2676562647324336,
+      "p50_ms": 9394.155874993885,
+      "p95_ms": 9491.459459008183,
+      "receipt_p95_ms": 93.08979101479053,
+      "cpu_seconds": 13.369498,
+      "peak_sampled_mib": 310.50390625,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 1
+    },
+    {
+      "engine": "python",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 5.1523200839874335,
+      "workflows_per_second": 24.843177037428834,
+      "p50_ms": 601.0375829646364,
+      "p95_ms": 809.3438750365749,
+      "receipt_p95_ms": 193.66574997548014,
+      "cpu_seconds": 8.144043999999994,
+      "peak_sampled_mib": 311.19921875,
+      "overload_responses": {
+        "503": 1,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 2
+    },
+    {
+      "engine": "python",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.632030291017145,
+      "workflows_per_second": 1.2881043893306063,
+      "p50_ms": 9112.79164548614,
+      "p95_ms": 9512.492834008299,
+      "receipt_p95_ms": 76.55200001318008,
+      "cpu_seconds": 13.655608999999998,
+      "peak_sampled_mib": 313.27734375,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 2
+    },
+    {
+      "engine": "go",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 0.865616167022381,
+      "workflows_per_second": 147.87154500626428,
+      "p50_ms": 84.06133350217715,
+      "p95_ms": 226.3777920161374,
+      "receipt_p95_ms": 127.70366697805002,
+      "cpu_seconds": 1.025531,
+      "peak_sampled_mib": 62.875,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 2
+    },
+    {
+      "engine": "go",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.177098875050433,
+      "workflows_per_second": 1.3203427106259502,
+      "p50_ms": 8547.755437000887,
+      "p95_ms": 9087.705000012647,
+      "receipt_p95_ms": 19.329458009451628,
+      "cpu_seconds": 3.4799469999999992,
+      "peak_sampled_mib": 64.421875,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 2
+    },
+    {
+      "engine": "go",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 0.8805947090149857,
+      "workflows_per_second": 145.35631282997153,
+      "p50_ms": 86.04624998406507,
+      "p95_ms": 223.22895901743323,
+      "receipt_p95_ms": 118.77783399540931,
+      "cpu_seconds": 1.0367439999999988,
+      "peak_sampled_mib": 66.65625,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 3
+    },
+    {
+      "engine": "go",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.211647082993295,
+      "workflows_per_second": 1.317837968780544,
+      "p50_ms": 9047.59460448986,
+      "p95_ms": 9109.038583002985,
+      "receipt_p95_ms": 22.61245803674683,
+      "cpu_seconds": 3.304117999999999,
+      "peak_sampled_mib": 67.19921875,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 3
+    },
+    {
+      "engine": "python",
+      "case": "linear",
+      "workflows": 128,
+      "concurrency": 16,
+      "elapsed_seconds": 5.1662437920458615,
+      "workflows_per_second": 24.77622140036703,
+      "p50_ms": 560.498437989736,
+      "p95_ms": 1002.3870409931988,
+      "receipt_p95_ms": 311.50145799620077,
+      "cpu_seconds": 6.924223000000001,
+      "peak_sampled_mib": 315.61328125,
+      "overload_responses": {
+        "503": 25,
+        "429": 0
+      },
+      "audit": {
+        "completed": 128,
+        "tries": 384,
+        "unique_tries": 384,
+        "output_nodes": 128
+      },
+      "round": 3
+    },
+    {
+      "engine": "python",
+      "case": "parallel",
+      "workflows": 24,
+      "concurrency": 12,
+      "elapsed_seconds": 18.747902292001527,
+      "workflows_per_second": 1.280143219555779,
+      "p50_ms": 9300.875541521236,
+      "p95_ms": 9437.862584018148,
+      "receipt_p95_ms": 92.41920802742243,
+      "cpu_seconds": 12.40041,
+      "peak_sampled_mib": 322.58203125,
+      "overload_responses": {
+        "503": 0,
+        "429": 0
+      },
+      "audit": {
+        "completed": 24,
+        "tries": 120,
+        "unique_tries": 120,
+        "output_nodes": 24
+      },
+      "round": 3
+    }
+  ]
+}

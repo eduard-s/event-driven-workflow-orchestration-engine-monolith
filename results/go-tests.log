@@ -1,0 +1,105 @@
+	workflowmonolith/cmd/workflow		coverage: 0.0% of statements
+=== RUN   TestIntegrationParallelFanIn
+2026/10/30 22:42:11 WARN claim_failed error="timeout: context already done: context canceled"
+--- PASS: TestIntegrationParallelFanIn (1.18s)
+=== RUN   TestIntegrationIdempotencyAndTriggerRace
+2026/10/30 22:42:11 WARN claim_failed error="context canceled"
+2026/10/30 22:42:11 WARN claim_failed error="timeout: context already done: context canceled"
+--- PASS: TestIntegrationIdempotencyAndTriggerRace (0.15s)
+=== RUN   TestIntegrationRetryAndFailure
+2026/10/30 22:42:11 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationRetryAndFailure (0.16s)
+=== RUN   TestIntegrationRecoveryAndSingleton
+--- PASS: TestIntegrationRecoveryAndSingleton (0.14s)
+=== RUN   TestIntegrationDuplicateAndStaleCompletion
+--- PASS: TestIntegrationDuplicateAndStaleCompletion (0.09s)
+=== RUN   TestIntegrationDeadlineAndBlockedBranch
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="timeout: context already done: context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationDeadlineAndBlockedBranch (0.24s)
+=== RUN   TestIntegrationHTTP
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationHTTP (0.11s)
+=== RUN   TestIntegrationPermanentFailureBlocksOnlyDescendants
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationPermanentFailureBlocksOnlyDescendants (0.15s)
+=== RUN   TestIntegrationPendingExpiryRetentionAndKeyLifetime
+--- PASS: TestIntegrationPendingExpiryRetentionAndKeyLifetime (0.10s)
+=== RUN   TestIntegrationExactAdmissionAndHTTPBounds
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationExactAdmissionAndHTTPBounds (0.10s)
+=== RUN   TestIntegrationExpiredRecoveryDoesNotRestartHandlers
+2026/10/30 22:42:12 WARN claim_failed error="context canceled"
+--- PASS: TestIntegrationExpiredRecoveryDoesNotRestartHandlers (0.19s)
+=== RUN   TestGraphValidation
+=== RUN   TestGraphValidation/linear
+=== RUN   TestGraphValidation/cycle
+=== RUN   TestGraphValidation/self
+=== RUN   TestGraphValidation/absent
+=== RUN   TestGraphValidation/duplicate
+=== RUN   TestGraphValidation/duplicate_edge
+=== RUN   TestGraphValidation/output_parent
+=== RUN   TestGraphValidation/unknown
+=== RUN   TestGraphValidation/bad_id
+=== RUN   TestGraphValidation/empty
+--- PASS: TestGraphValidation (0.00s)
+    --- PASS: TestGraphValidation/linear (0.00s)
+    --- PASS: TestGraphValidation/cycle (0.00s)
+    --- PASS: TestGraphValidation/self (0.00s)
+    --- PASS: TestGraphValidation/absent (0.00s)
+    --- PASS: TestGraphValidation/duplicate (0.00s)
+    --- PASS: TestGraphValidation/duplicate_edge (0.00s)
+    --- PASS: TestGraphValidation/output_parent (0.00s)
+    --- PASS: TestGraphValidation/unknown (0.00s)
+    --- PASS: TestGraphValidation/bad_id (0.00s)
+    --- PASS: TestGraphValidation/empty (0.00s)
+=== RUN   TestStrictJSON
+--- PASS: TestStrictJSON (0.00s)
+=== RUN   TestTemplateGrammarAndTypes
+=== RUN   TestTemplateGrammarAndTypes/{{_a.value_}}
+=== RUN   TestTemplateGrammarAndTypes/x_{{_a.array[1]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a["a.b"]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a["}}"]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a.array[0]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{{{_a_}}}}
+=== RUN   TestTemplateGrammarAndTypes/_{{_a.array[2]_}}_
+--- PASS: TestTemplateGrammarAndTypes (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a.value_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/x_{{_a.array[1]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a["a.b"]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a["}}"]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a.array[0]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{{{_a_}}}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/_{{_a.array[2]_}}_ (0.00s)
+=== RUN   TestReferenceAndOverrideRules
+--- PASS: TestReferenceAndOverrideRules (0.00s)
+=== RUN   TestResolutionBudgetsAndAbsentData
+--- PASS: TestResolutionBudgetsAndAbsentData (0.00s)
+=== RUN   TestConfigLimits
+--- PASS: TestConfigLimits (0.00s)
+=== RUN   TestUnicodeAndNumberSafety
+--- PASS: TestUnicodeAndNumberSafety (0.00s)
+=== RUN   FuzzTemplateParser
+=== RUN   FuzzTemplateParser/seed#0
+=== RUN   FuzzTemplateParser/seed#1
+=== RUN   FuzzTemplateParser/seed#2
+=== RUN   FuzzTemplateParser/seed#3
+=== RUN   FuzzTemplateParser/seed#4
+=== RUN   FuzzTemplateParser/seed#5
+--- PASS: FuzzTemplateParser (0.00s)
+    --- PASS: FuzzTemplateParser/seed#0 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#1 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#2 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#3 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#4 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#5 (0.00s)
+PASS
+coverage: 78.1% of statements
+ok  	workflowmonolith/internal/engine	4.307s	coverage: 78.1% of statements

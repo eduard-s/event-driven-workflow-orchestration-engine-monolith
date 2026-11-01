@@ -1,0 +1,66 @@
+name: workflow-go
+services:
+  app:
+    image: workflow-go-monolith:local
+    build: .
+    init: true
+    restart: unless-stopped
+    environment:
+      WF_POSTGRES_DSN: postgres://workflow:workflow@postgres:5432/workflow?sslmode=disable
+      WF_WORKER_CONCURRENCY: ${WF_WORKER_CONCURRENCY:-4}
+      WF_EXECUTION_SLOTS: ${WF_EXECUTION_SLOTS:-8}
+      WF_REQUESTS_PER_SECOND: ${WF_REQUESTS_PER_SECOND:-10}
+      WF_MAX_EXECUTIONS: ${WF_MAX_EXECUTIONS:-100}
+      WF_MAX_RECORDS: ${WF_MAX_RECORDS:-1000}
+      WF_HANDLER_TIMEOUT: ${WF_HANDLER_TIMEOUT:-10}
+      WF_EXECUTION_TIMEOUT: ${WF_EXECUTION_TIMEOUT:-300}
+      WF_RETRY_BASE: ${WF_RETRY_BASE:-1}
+      WF_ENABLE_TEST_FIXTURES: ${WF_ENABLE_TEST_FIXTURES:-0}
+    ports: ["127.0.0.1:${WF_API_PORT:-29400}:8000"]
+    cpus: 2
+    mem_limit: 1g
+    stop_grace_period: 15s
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, /workflow, health]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+  test:
+    image: workflow-go-monolith:test
+    build:
+      context: .
+      target: test
+    profiles: [test]
+    environment:
+      WF_TEST_POSTGRES_DSN: postgres://workflow:workflow@postgres:5432/workflow?sslmode=disable
+    cpus: 2
+    mem_limit: 1g
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:18@sha256:edb0c08dc33befd0262ab3b5cf1c4f3f8cfd8b09e88c05b45adee29d6761ddb6
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: workflow
+      POSTGRES_PASSWORD: workflow
+      POSTGRES_DB: workflow
+    ports: ["127.0.0.1:${WF_POSTGRES_PORT:-29432}:5432"]
+    volumes: ["postgres-data:/var/lib/postgresql"]
+    cpus: 1
+    mem_limit: 512m
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U workflow -d workflow"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  postgres-data:

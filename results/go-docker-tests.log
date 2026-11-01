@@ -1,0 +1,139 @@
+ Container workflow-go-check-postgres-1  Running
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [test internal] load build definition from Dockerfile
+#1 transferring dockerfile: 523B done
+#1 DONE 0.0s
+
+#2 [test internal] load metadata for docker.io/library/golang:1.27.3-bookworm@sha256:d9b6a1beb9474adc2a1ce842573639b44b2a0dd49b6669f51d3821baf9ec37c9
+#2 DONE 1.3s
+
+#3 [test internal] load .dockerignore
+#3 transferring context: 111B done
+#3 DONE 0.0s
+
+#4 [test build 1/6] FROM docker.io/library/golang:1.27.3-bookworm@sha256:d9b6a1beb9474adc2a1ce842573639b44b2a0dd49b6669f51d3821baf9ec37c9
+#4 DONE 0.0s
+
+#5 [test internal] load build context
+#5 transferring context: 90.38kB done
+#5 DONE 0.0s
+
+#6 [test build 2/6] WORKDIR /src
+#6 CACHED
+
+#7 [test build 3/6] COPY go.mod go.sum ./
+#7 CACHED
+
+#8 [test build 4/6] RUN go mod download
+#8 CACHED
+
+#9 [test build 5/6] COPY . .
+#9 DONE 0.0s
+
+#10 [test build 6/6] RUN CGO_ENABLED=0 go build -trimpath -ldflags='-s -w' -o /workflow ./cmd/workflow
+#10 DONE 5.0s
+
+#11 [test] exporting to image
+#11 exporting layers
+#11 exporting layers 0.3s done
+#11 writing image sha256:847361691c8b48627c74c7641800e5a44370cc8f07f11c104ac29b3bd53b78e5
+#11 writing image sha256:847361691c8b48627c74c7641800e5a44370cc8f07f11c104ac29b3bd53b78e5 done
+#11 naming to docker.io/library/workflow-go-monolith:test done
+#11 DONE 0.3s
+
+#12 [test] resolving provenance for metadata file
+#12 DONE 0.0s
+?   	workflowmonolith/cmd/workflow	[no test files]
+=== RUN   TestIntegrationParallelFanIn
+--- PASS: TestIntegrationParallelFanIn (1.11s)
+=== RUN   TestIntegrationIdempotencyAndTriggerRace
+--- PASS: TestIntegrationIdempotencyAndTriggerRace (0.09s)
+=== RUN   TestIntegrationRetryAndFailure
+--- PASS: TestIntegrationRetryAndFailure (0.10s)
+=== RUN   TestIntegrationRecoveryAndSingleton
+--- PASS: TestIntegrationRecoveryAndSingleton (0.11s)
+=== RUN   TestIntegrationDuplicateAndStaleCompletion
+--- PASS: TestIntegrationDuplicateAndStaleCompletion (0.07s)
+=== RUN   TestIntegrationDeadlineAndBlockedBranch
+--- PASS: TestIntegrationDeadlineAndBlockedBranch (0.23s)
+=== RUN   TestIntegrationHTTP
+--- PASS: TestIntegrationHTTP (0.08s)
+=== RUN   TestIntegrationPermanentFailureBlocksOnlyDescendants
+--- PASS: TestIntegrationPermanentFailureBlocksOnlyDescendants (0.08s)
+=== RUN   TestIntegrationPendingExpiryRetentionAndKeyLifetime
+--- PASS: TestIntegrationPendingExpiryRetentionAndKeyLifetime (0.08s)
+=== RUN   TestIntegrationExactAdmissionAndHTTPBounds
+--- PASS: TestIntegrationExactAdmissionAndHTTPBounds (0.08s)
+=== RUN   TestIntegrationExpiredRecoveryDoesNotRestartHandlers
+2026/10/30 18:51:59 WARN claim_failed error="context canceled"
+2026/10/30 18:51:59 WARN claim_failed error="context canceled"
+2026/10/30 18:51:59 WARN claim_failed error="timeout: context already done: context canceled"
+2026/10/30 18:51:59 WARN claim_failed error="timeout: context already done: context canceled"
+--- PASS: TestIntegrationExpiredRecoveryDoesNotRestartHandlers (0.16s)
+=== RUN   TestGraphValidation
+=== RUN   TestGraphValidation/linear
+=== RUN   TestGraphValidation/cycle
+=== RUN   TestGraphValidation/self
+=== RUN   TestGraphValidation/absent
+=== RUN   TestGraphValidation/duplicate
+=== RUN   TestGraphValidation/duplicate_edge
+=== RUN   TestGraphValidation/output_parent
+=== RUN   TestGraphValidation/unknown
+=== RUN   TestGraphValidation/bad_id
+=== RUN   TestGraphValidation/empty
+--- PASS: TestGraphValidation (0.00s)
+    --- PASS: TestGraphValidation/linear (0.00s)
+    --- PASS: TestGraphValidation/cycle (0.00s)
+    --- PASS: TestGraphValidation/self (0.00s)
+    --- PASS: TestGraphValidation/absent (0.00s)
+    --- PASS: TestGraphValidation/duplicate (0.00s)
+    --- PASS: TestGraphValidation/duplicate_edge (0.00s)
+    --- PASS: TestGraphValidation/output_parent (0.00s)
+    --- PASS: TestGraphValidation/unknown (0.00s)
+    --- PASS: TestGraphValidation/bad_id (0.00s)
+    --- PASS: TestGraphValidation/empty (0.00s)
+=== RUN   TestStrictJSON
+--- PASS: TestStrictJSON (0.00s)
+=== RUN   TestTemplateGrammarAndTypes
+=== RUN   TestTemplateGrammarAndTypes/{{_a.value_}}
+=== RUN   TestTemplateGrammarAndTypes/x_{{_a.array[1]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a["a.b"]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a["}}"]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{_a.array[0]_}}
+=== RUN   TestTemplateGrammarAndTypes/{{{{_a_}}}}
+=== RUN   TestTemplateGrammarAndTypes/_{{_a.array[2]_}}_
+--- PASS: TestTemplateGrammarAndTypes (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a.value_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/x_{{_a.array[1]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a["a.b"]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a["}}"]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{_a.array[0]_}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/{{{{_a_}}}} (0.00s)
+    --- PASS: TestTemplateGrammarAndTypes/_{{_a.array[2]_}}_ (0.00s)
+=== RUN   TestReferenceAndOverrideRules
+--- PASS: TestReferenceAndOverrideRules (0.00s)
+=== RUN   TestResolutionBudgetsAndAbsentData
+--- PASS: TestResolutionBudgetsAndAbsentData (0.00s)
+=== RUN   TestConfigLimits
+--- PASS: TestConfigLimits (0.00s)
+=== RUN   TestUnicodeAndNumberSafety
+--- PASS: TestUnicodeAndNumberSafety (0.00s)
+=== RUN   FuzzTemplateParser
+=== RUN   FuzzTemplateParser/seed#0
+=== RUN   FuzzTemplateParser/seed#1
+=== RUN   FuzzTemplateParser/seed#2
+=== RUN   FuzzTemplateParser/seed#3
+=== RUN   FuzzTemplateParser/seed#4
+=== RUN   FuzzTemplateParser/seed#5
+--- PASS: FuzzTemplateParser (0.00s)
+    --- PASS: FuzzTemplateParser/seed#0 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#1 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#2 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#3 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#4 (0.00s)
+    --- PASS: FuzzTemplateParser/seed#5 (0.00s)
+PASS
+ok  	workflowmonolith/internal/engine	3.211s

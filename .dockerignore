@@ -1,0 +1,9 @@
+.git
+bin
+results
+__pycache__
+*.md
+
+.venv
+.env
+coverage.out

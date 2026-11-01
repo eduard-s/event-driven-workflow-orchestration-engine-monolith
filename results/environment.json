@@ -1,0 +1,49 @@
+{
+  "measurement_date": "2026-10-30",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "python": "3.14.3"
+  },
+  "go_version": "go version go1.27.3 darwin/arm64",
+  "python_source_commit": "ab2803487da5b930baab26171ccbb27aa60b3448",
+  "docker": "28.0.4",
+  "images": [
+    {
+      "Id": "sha256:afe8f8385ac745b450790d53727e0d2ef6c03bc13b971fed1626356ad5ce19df",
+      "RepoTags": [
+        "workflow-go-monolith:local"
+      ],
+      "Size": 11075744
+    },
+    {
+      "Id": "sha256:19287e0954b832d9ec1f90e16cfec0451f24571db54293de98ebbb42c116e94a",
+      "RepoTags": [
+        "workflow-python-compare:local"
+      ],
+      "Size": 199808810
+    },
+    {
+      "Id": "sha256:e23b3979aa83c465f51b09d8f91a9058b802ebb47989eec1e8d025be6824c4a7",
+      "RepoTags": [
+        "workflow-python-test:local"
+      ],
+      "Size": 383807807
+    }
+  ],
+  "source_sha256": {
+    "cmd/workflow/main.go": "efa7867ffa253d8cb9dd4c5e5032975f4ce89dc078d0103a07cd88998fab9771",
+    "go.mod": "3c685e2df2201340eadf9280cb803391aabf6dcb5ea7a81f5ee983a7758b65f4",
+    "go.sum": "a5e7a8db07eba28dbde48bf9a54c4e9084a5a95ded581c0ff44c08b74e3dfe69",
+    "internal/engine/config.go": "d3a9b323090bbdf75ba176085d04058aa494dd6afcb33e0b39ba60a3836dae1f",
+    "internal/engine/handlers.go": "a27bf7c690b4e99df7ae8ff9e9dfe4c1eb5dd047edb09fa06122e96730de7c18",
+    "internal/engine/http.go": "878fdcab8fc56b621ad7cd2501d0621f08464174686b561439e16552f95f2bc2",
+    "internal/engine/integration_test.go": "0c0605f831686caf94837a7902f96d913ee3fb6aef12c66f09af5c54cca3b665",
+    "internal/engine/model.go": "fbfff39d9ddab4af232afd27a038317ed6ffd852716aee819589c4b7b5adbf47",
+    "internal/engine/model_test.go": "f43fee40cbf5646e11b8ad15241a2f49d77b079e2d312ce67316f571f21b16e7",
+    "internal/engine/scheduler.go": "1076fc1a85085f1ddcd89a6ba4255cdd3cb9ba04397ee31c18a2df1e0663e75e",
+    "internal/engine/schema.sql": "ea399b34c1b0e8db66ac57b6d27acb55e78ed9546c3e1957a38811759ef2e32f",
+    "internal/engine/store.go": "b4cba0abaf9b25e7777f6d07c82e360a66a1020942a76fe813c04ae0a16eedf7",
+    "internal/engine/templates.go": "ae043d8588a688e5f9d793e9f1bb9956eab9a952cd109082f76a9958aaed7bcd"
+  }
+}
